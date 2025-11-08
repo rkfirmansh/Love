@@ -1,0 +1,121 @@
+<!doctype html>
+<html lang="id">
+<head>
+<meta charset="utf-8" />
+<title>I love you ❤</title>
+<style>
+  html,body {
+    height:100%; margin:0;
+    display:flex; align-items:center; justify-content:center;
+    background: radial-gradient(circle at center, #0b0b0b 0%, #000 100%);
+    overflow:hidden;
+    color:white;
+    font-family:'Poppins', sans-serif;
+  }
+
+  .container { text-align:center; }
+
+  .heart {
+    font-size:6rem;
+    color:#ff4d7a;
+    animation:beat 1s infinite alternate ease-in-out;
+  }
+
+  @keyframes beat {
+    from { transform:scale(1); filter: drop-shadow(0 0 8px rgba(255,77,122,0.6)); }
+    to   { transform:scale(1.25); filter: drop-shadow(0 0 25px rgba(255,77,122,1)); }
+  }
+
+  #text {
+    margin-top:10px;
+    font-size:1.8rem;
+    color:#ff8ca3;
+    letter-spacing:1px;
+    min-height:2em;
+  }
+
+  /* bintang-bintang */
+  .star {
+    position:absolute;
+    width:2px; height:2px;
+    background:#fff;
+    border-radius:50%;
+    opacity:0.8;
+    animation:twinkle 2s infinite alternate;
+  }
+  @keyframes twinkle {
+    from { opacity:0.3; transform:scale(0.8); }
+    to { opacity:1; transform:scale(1.2); }
+  }
+
+  /* tombol play */
+  .play-btn {
+    position:fixed;
+    bottom:20px;
+    left:50%;
+    transform:translateX(-50%);
+    background:#ff4d7a;
+    color:#fff;
+    border:none;
+    border-radius:25px;
+    padding:10px 25px;
+    font-size:1rem;
+    cursor:pointer;
+    box-shadow:0 0 10px rgba(255,77,122,0.6);
+  }
+  .play-btn:hover { background:#ff708f; }
+</style>
+</head>
+<body>
+  <div class="container">
+    <div class="heart">❤</div>
+    <div id="text"></div>
+  </div>
+
+  <button class="play-btn" id="playBtn">🎵 Putar Musik</button>
+
+  <audio id="bgmusic" loop>
+    <source src="https://cdn.pixabay.com/download/audio/2023/01/31/audio_6f09fa36ef.mp3?filename=romantic-piano-141401.mp3" type="audio/mpeg">
+  </audio>
+
+  <script>
+    const message = "I love you ❤ Anggita Kirana Trihapsari";
+    const textEl = document.getElementById('text');
+    let i = 0;
+
+    function type() {
+      if (i < message.length) {
+        textEl.innerHTML += message.charAt(i);
+        i++;
+        setTimeout(type, 100);
+      } else {
+        // ulang setelah beberapa detik
+        setTimeout(() => {
+          textEl.innerHTML = "";
+          i = 0;
+          type();
+        }, 4000);
+      }
+    }
+    type();
+
+    // bintang berkelip acak
+    for(let i=0;i<50;i++){
+      const star=document.createElement('div');
+      star.className='star';
+      star.style.top=Math.random()*100+'%';
+      star.style.left=Math.random()*100+'%';
+      star.style.animationDelay=(Math.random()*2)+'s';
+      document.body.appendChild(star);
+    }
+
+    // tombol play musik
+    const playBtn = document.getElementById('playBtn');
+    const music = document.getElementById('bgmusic');
+    playBtn.addEventListener('click', () => {
+      music.play();
+      playBtn.style.display = 'none';
+    });
+  </script>
+</body>
+</html>
